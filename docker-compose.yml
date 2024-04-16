@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    build: .
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
