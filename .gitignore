@@ -1,0 +1,16 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# IntelliJ
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Ignore Pandoc output files
+*.zip
+*.pdf
