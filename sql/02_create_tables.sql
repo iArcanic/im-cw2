@@ -34,3 +34,36 @@ CREATE TABLE IF NOT EXISTS student_info.Audit_Trail (
   change_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES student_info.Users (user_id)
 );
+
+-- Create the Departments table
+CREATE TABLE IF NOT EXISTS student_info.Departments (
+  department_id SERIAL PRIMARY KEY,
+  department_name TEXT NOT NULL
+);
+
+-- Create the Courses table
+CREATE TABLE IF NOT EXISTS student_info.Courses (
+  course_id SERIAL PRIMARY KEY,
+  course_name TEXT NOT NULL,
+  department_id INTEGER NOT NULL,
+  FOREIGN KEY (department_id) REFERENCES student_info.Departments (department_id)
+);
+
+-- Create the Grades table
+CREATE TABLE IF NOT EXISTS student_info.Grades (
+  grade_id SERIAL PRIMARY KEY,
+  student_id INTEGER NOT NULL,
+  course_id INTEGER NOT NULL,
+  grade VARCHAR(2),
+  FOREIGN KEY (student_id) REFERENCES student_info.Student (student_id),
+  FOREIGN KEY (course_id) REFERENCES student_info.Courses (course_id)
+);
+
+-- Create the Financial_Information table
+CREATE TABLE IF NOT EXISTS student_info.Financial_Information (
+  financial_id SERIAL PRIMARY KEY,
+  student_id INTEGER NOT NULL,
+  scholarship_amount NUMERIC(10, 2),
+  tuition_fee_paid NUMERIC(10, 2),
+  FOREIGN KEY (student_id) REFERENCES student_info.Student (student_id)
+);

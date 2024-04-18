@@ -22,3 +22,4 @@ VALUES
   ('faculty02', 'faculty456', 2),
   ('student01', 'student123', 3),
   ('student02', 'student456', 3);
+  
