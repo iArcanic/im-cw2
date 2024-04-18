@@ -1,6 +1,3 @@
--- Check the search path
-SHOW search_path;
-
 -- Create the Student table
 CREATE TABLE IF NOT EXISTS student_info.Student (
   student_id SERIAL PRIMARY KEY,
