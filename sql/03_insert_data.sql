@@ -22,4 +22,30 @@ VALUES
   ('faculty02', 'faculty456', 2),
   ('student01', 'student123', 3),
   ('student02', 'student456', 3);
-  
+
+-- Insert sample data into Departments table
+INSERT INTO student_info.Departments (department_name)
+VALUES
+    ('Computer Science'),
+    ('Mathematics'),
+    ('Engineering');
+
+-- Insert sample data into Courses table
+INSERT INTO student_info.Courses (course_name, department_id)
+VALUES
+    ('Introduction to Programming', 1),
+    ('Calculus I', 2),
+    ('Introduction to Electrical Engineering', 3);
+
+-- Insert sample data into Grades table
+INSERT INTO student_info.Grades (student_id, course_id, grade)
+VALUES
+    (1, 1, 'A'),
+    (1, 2, 'B'),
+    (2, 1, 'B+');
+
+-- Insert sample data into Financial_Information table
+INSERT INTO student_info.Financial_Information (student_id, scholarship_amount, tuition_fee_paid)
+VALUES
+    (1, 5000.00, 2500.00),
+    (2, 0.00, 3000.00);
