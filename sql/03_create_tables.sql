@@ -1,26 +1,10 @@
 -- Create the Student table
-CREATE TABLE IF NOT EXISTS student_info.Student (
+CREATE TABLE IF NOT EXISTS student_info.Students (
   student_id SERIAL PRIMARY KEY,
-  first_name TEXT,
-  last_name TEXT,
+  name TEXT,
   date_of_birth DATE,
   address TEXT,
   year_of_study INTEGER
-);
-
--- Create the User_Roles table
-CREATE TABLE IF NOT EXISTS student_info.User_Roles (
-  role_id SERIAL PRIMARY KEY,
-  role_name TEXT NOT NULL UNIQUE
-);
-
--- Create the Users table
-CREATE TABLE IF NOT EXISTS student_info.Users (
-  user_id SERIAL PRIMARY KEY,
-  username TEXT NOT NULL UNIQUE,
-  password TEXT NOT NULL,
-  role_id INTEGER NOT NULL,
-  FOREIGN KEY (role_id) REFERENCES student_info.User_Roles (role_id)
 );
 
 -- Create the Audit_Trail table
@@ -31,8 +15,7 @@ CREATE TABLE IF NOT EXISTS student_info.Audit_Trail (
   record_id INTEGER NOT NULL,
   action TEXT NOT NULL,
   change_details JSON,
-  change_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES student_info.Users (user_id)
+  change_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create the Departments table
@@ -55,7 +38,7 @@ CREATE TABLE IF NOT EXISTS student_info.Grades (
   student_id INTEGER NOT NULL,
   course_id INTEGER NOT NULL,
   grade VARCHAR(2),
-  FOREIGN KEY (student_id) REFERENCES student_info.Student (student_id),
+  FOREIGN KEY (student_id) REFERENCES student_info.Students (student_id),
   FOREIGN KEY (course_id) REFERENCES student_info.Courses (course_id)
 );
 
@@ -65,5 +48,5 @@ CREATE TABLE IF NOT EXISTS student_info.Financial_Information (
   student_id INTEGER NOT NULL,
   scholarship_amount NUMERIC(10, 2),
   tuition_fee_paid NUMERIC(10, 2),
-  FOREIGN KEY (student_id) REFERENCES student_info.Student (student_id)
+  FOREIGN KEY (student_id) REFERENCES student_info.Students (student_id)
 );
