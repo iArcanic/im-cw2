@@ -11,18 +11,58 @@ csl: docs/report/harvard-imperial-college-london.csl
 
 # 1 Introduction
 
+<!-- 200 words maximum -->
+
 # 2 Database design and security
+
+<!-- 800 words maximum -->
+
+## 2.1 Table design
+
+<!-- 400 words maximum -->
+
+## 2.2 Security requirements
+
+<!-- 200 words maximum -->
+
+## 2.3 Security measures
+
+<!-- 200 words maximum -->
 
 # 3 Access control
 
-# 4 Role-based security
+<!-- 500 words maximum -->
 
-# 5 Minimising risk of unathorised access
+## 3.1 SQL queries for user roles
 
-# 6 Data auditing
+<!-- 300 words maximum -->
 
-# 7 Conclusion
+## 3.2 Access control mechanisms
 
-# 8 Appendices
+<!-- 200 words maximum -->
 
-# 9 References
+# 4 Miscellaneous
+
+## 4.1 Role-based security
+
+<!-- 1250 words maximum -->
+
+## 4.2 Minimising risk of unauthorised access
+
+<!-- 350 words maximum -->
+
+## 4.3 Data auditing
+
+<!-- 550 words maximum -->
+
+# 5 Conclusion
+
+<!-- 200 words maximum -->
+
+# 6 Appendices
+
+## 6.1 GitHub repository
+
+[https://github.com/iArcanic/im-cw2](https://github.com/iArcanic/im-cw2)
+
+# 7 References
