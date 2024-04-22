@@ -54,6 +54,20 @@ The database design is compatible with data archival and backup strategies for l
 
 <!-- 200 words maximum -->
 
+Based on the provided scenario of the university's student information system, a system that handles sensitive student records including academic and financial information, several security requirements need to be addressed. These requirements aim to uphold the values of confidentiality, integrity, and availability regarding the data being held in the database [@elmasri2016].
+
+**Confidentiality**: the system should guarantee that information that is sensitive, i.e. personal details, financial data, and grades, is only accessible to authorised users or those who have the necessary permissions. Therefore, access controls along with data encryption measures should be enforced to consolidate this [@bertino2005].
+
+**Integrity**: The accuracy and correctness of the information held in the database should be maintained. This means through measures such as input validation, auditing, and enforcing constraints to prevent accidental or malicious data modifications [@garcia2008].
+
+**Availability**: The student information should be up and running at all times to authorised users when needed. For this attribute, denial-of-service attacks, system failures (both hardware and software), or other disruptions are the biggest challenges that can impact the availability of the system [@stallings2015].
+
+**Authentication and authorisation**: Robust authentication mechanisms should be integrated to verify the identity of users, only to ensure that authorised individuals have access to the system, and the relevant information based on their permissions [@sandhu1994].
+
+**Auditing and logging**: In the event of a security breach or to detect potential ones, it would be beneficial for the system to implement comprehensive logging that records all user activities, modifications to data, and any attempts to access the system – whether that be authorised (for insider threats) or unauthorised [@mukherjee1994].
+
+By taking into account the identified security requirements and addressing them, the university can be confident in protecting sensitive information stored in their information systems, as well as complying with relevant data protection regulations and adopting industry best practices.
+
 ## 2.3 Security measures
 
 <!-- 200 words maximum -->
