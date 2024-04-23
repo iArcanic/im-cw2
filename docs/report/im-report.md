@@ -58,7 +58,7 @@ Based on the provided scenario of the university's student information system, a
 
 **Confidentiality**: the system should guarantee that information that is sensitive, i.e. personal details, financial data, and grades, is only accessible to authorised users or those who have the necessary permissions. Therefore, access controls along with data encryption measures should be enforced to consolidate this [@bertino2005].
 
-**Integrity**: The accuracy and correctness of the information held in the database should be maintained. This means through measures such as input validation, auditing, and enforcing constraints to prevent accidental or malicious data modifications [@garcia2008].
+**Integrity**: The accuracy and correctness of the information held in the database should be maintained to prevent accidental or malicious data modifications [@garcia2008].
 
 **Availability**: The student information should be up and running at all times to authorised users when needed. For this attribute, denial-of-service attacks, system failures (both hardware and software), or other disruptions are the biggest challenges that can impact the availability of the system [@stallings2015].
 
@@ -71,6 +71,22 @@ By taking into account the identified security requirements and addressing them,
 ## 2.3 Security measures
 
 <!-- 200 words maximum -->
+
+Through these security control measures, the identified security requirements can be met. These are to be implemented in the database design and their access control mechanisms.
+
+**Access control**: Through the PostgreSQL role system, a role-based access control (RBAC) system [@ferraiolo2001] can be established. The various user roles (administrators, faculty members, and students) are assigned the necessary privileges whilst also restricting access to sensitive data. This adheres to the principle of least privilege [@saltzer1975].
+
+**Data encryption**: Sensitive fields in the database, i.e. `date_of_birth` and `address` in the `Students` and data within the `Financial_Information` tables, should be encrypted using industry-standard cryptographic algorithms such as AES-256 or similar [@deamen2002]. This ensures the confidentiality of the information and confidence in data integrity even in the event of data exfiltration.
+
+**Input validation**: Injection attacks are a main concern with SQL databases, so stored procedures with triggers to validate user input when new data is inserted should be implemented to ensure data integrity [@stuttard2011].
+
+**Auditing**: Via the `Audit_Trail` table, all activities, including user details, are recorded along with their timestamp. This is to aid in preventing security breaches or using this information to improve existing security measures [@mukherjee1994].
+
+**Backup and recovery**: Incorporating regular backups to be scheduled is vital for disaster recovery plans to ensure business continuity and data availability in the event of system failures or data loss incidents [@chervenak1998].
+
+**Authentication**: This would mainly be through strong password policies enforced by the university. Additionally, mechanisms such as multi-factor authentication can also be used to authenticate the identity of users to prevent unauthorised access [@stallings2015].
+
+By integrating these security measures as part of the database design as well as implementing the appropriate access control mechanisms, the student information system can protect sensitive data, ensure compliance with necessary regulations, and maintain overall data integrity.
 
 # 3 Access control
 
