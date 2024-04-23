@@ -96,6 +96,49 @@ By integrating these security measures as part of the database design as well as
 
 <!-- 300 words maximum -->
 
+To implement the desired access controls for each user role (administrators, faculty members, and students) and the corresponding privileges, SQL queries have been written based on the access requirements for the tables (see [2.1 Table design](#21-table-design)).
+
+### 3.1.1 Administrators
+
+<!-- 100 words maximum -->
+
+```sql
+CREATE ROLE admin;
+```
+
+This statement creates a new role called `admin`.
+
+```sql
+GRANT SELECT, INSERT, UPDATE (name, address, student_id, year_of_study) ON student_info.Students TO administrator;
+GRANT SELECT, INSERT ON student_info.Audit_Trail TO administrator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Departments TO administrator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Courses TO administrator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Grades TO administrator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Financial_Information TO administrator;
+```
+
+The series of `GRANT` statements [@postgresql2024] here provide the `admin` role to perform operations such as `SELECT` (list data), `INSERT` (insert new data), `UPDATE` (update table records with new data), and `DELETE` (remove data) on all tables within the database. This makes sense for an administrative role, as in reality, they would have complete control over the system for maintenance and management purposes.
+
+### 3.1.2 Faculty members
+
+<!-- 100 words maximum -->
+
+```sql
+CREATE ROLE faculty_member;
+```
+
+This statement creates a new role called `faculty_member`.
+
+### 3.1.3 Students
+
+<!-- 100 words maximum -->
+
+```sql
+CREATE ROLE student;
+```
+
+This statement creates a new role called `student`.
+
 ## 3.2 Access control mechanisms
 
 <!-- 200 words maximum -->
