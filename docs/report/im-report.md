@@ -96,7 +96,7 @@ By integrating these security measures as part of the database design as well as
 
 <!-- 300 words maximum -->
 
-To implement the desired access controls for each user role (administrators, faculty members, and students) and the corresponding privileges, SQL queries have been written based on the access requirements for the tables (see [2.1 Table design](#21-table-design)).
+To implement the desired access controls for each user role (administrators, faculty members, and students) and the corresponding privileges, SQL queries have been written based on the access requirements for the tables (see [2.1 Table design](#21-table-design)). This ensures that each user role only has access to the necessary information and performs the relevant operations in adherence with the principle of least privilege [@saltzer1975].
 
 ### 3.1.1 Administrators
 
@@ -110,10 +110,15 @@ This statement creates a new role called `admin`.
 
 ```sql
 GRANT SELECT, INSERT, UPDATE (name, address, student_id, year_of_study) ON student_info.Students TO administrator;
+
 GRANT SELECT, INSERT ON student_info.Audit_Trail TO administrator;
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Departments TO administrator;
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Courses TO administrator;
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Grades TO administrator;
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Financial_Information TO administrator;
 ```
 
@@ -129,6 +134,18 @@ CREATE ROLE faculty_member;
 
 This statement creates a new role called `faculty_member`.
 
+```sql
+GRANT SELECT, INSERT, UPDATE (name, address, date_of_birth, student_id, year_of_study) ON student_info.Students TO faculty_member;
+
+GRANT SELECT ON student_info.Courses TO faculty_member;
+
+GRANT SELECT ON student_info.Grades TO faculty_member;
+
+GRANT SELECT ON student_info.Financial_Information TO faculty_member;
+```
+
+Here, this series of `GRANT` statements allows certain privileges on the `Students` table for specific fields. In the other tables, `Courses`, `Grades`, and `Financial_Information`, faculty members are only able to view the data through the `SELECT` permission.
+
 ### 3.1.3 Students
 
 <!-- 100 words maximum -->
@@ -138,6 +155,18 @@ CREATE ROLE student;
 ```
 
 This statement creates a new role called `student`.
+
+```sql
+GRANT SELECT, INSERT, UPDATE (name, student_id, year_of_study) ON student_info.Students TO student;
+
+GRANT SELECT ON student_info.Courses TO student;
+
+GRANT SELECT ON student_info.Grades TO student;
+
+GRANT SELECT ON student_info.Financial_Information TO student;
+```
+
+For the `student` role, the `GRANT` statements [@mysql2024] here allow for the student to view their personal information on the `Courses`, `Grades`, and `Financial_Information` tables via the `SELECT` privilege.
 
 ## 3.2 Access control mechanisms
 
