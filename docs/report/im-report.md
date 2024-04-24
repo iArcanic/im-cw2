@@ -172,6 +172,8 @@ For the `student` role, the `GRANT` statements [@mysql2024] here allow for the s
 
 <!-- 200 words maximum -->
 
+To make sure that only designated users
+
 # 4 Miscellaneous
 
 ## 4.1 Role-based security
