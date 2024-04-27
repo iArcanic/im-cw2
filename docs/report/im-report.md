@@ -172,7 +172,19 @@ For the `student` role, the `GRANT` statements [@mysql2024] here allow for the s
 
 <!-- 200 words maximum -->
 
-To make sure that only designated users
+To make sure that only designated users have access to specific information within the proposed database schema (see [2.1 Table design](#21-table-design)), several access control methods have been implemented.
+
+**Role-Based Access Control (RBAC)**: As mentioned previously, the database employs an RBAC model where permissions are based upon the user's assigned role rather than just individual users [@ferraiolo2001]. This therefore simplifies access management.
+
+**View-Based Access Control**: Rather than granting direct access to tables, views can be created to restrict the visibility of sensitive information in certain columns. An example of this may be that a view for faculty members may exclude columns containing a student's financial information [@bertino2005].
+
+**Encryption and masking**: Sensitive data in tables such as addresses in the `Student` table or entries in the `Financial_Information` table, can be encrypted using industry-standard algorithms such as AES-256 [@deamen2002].
+
+**Auditing and logging**: All access controls and any modifications to tables or data are recorded in the `Audit_Trail` table, which captures operation types, timestamps, and details of the user. It enables logging unauthorised access attempts [@mukherjee1994].
+
+**Authentication and authorisation**: Strong mechanisms for authentication, such as 2FA and well-defined password policies to verify user identity. Authorisation is handled through the aforementioned RBAC model, allowing users to perform the necessary actions dependent on their role [@stallings2015].
+
+Through this implementation of the various access controls, the student information system can comply with security and privacy regulations as well as restrict access to sensitive data and maintain data integrity.
 
 # 4 Miscellaneous
 
