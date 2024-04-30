@@ -184,7 +184,7 @@ To make sure that only designated users have access to specific information with
 
 **Authentication and authorisation**: Strong mechanisms for authentication, such as 2FA and well-defined password policies to verify user identity. Authorisation is handled through the aforementioned RBAC model, allowing users to perform the necessary actions dependent on their role [@stallings2015].
 
-Through this implementation of the various access controls, the student information system can comply with security and privacy regulations as well as restrict access to sensitive data and maintain data integrity.
+Through this implementation of the various access controls, the student information system can comply with security and privacy regulations as well as restrict access to sensitive data, and maintain data integrity.
 
 # 4 Miscellaneous
 
