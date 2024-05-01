@@ -258,6 +258,16 @@ It would also be beneficial for the university to establish well-defined policie
 
 <!-- 200 words maximum -->
 
+Upholding the elements of the CIA triad, i.e. confidentiality, integrity, and availability, for the university's student information system is of paramount importance. This report therefore has detailed an approach to address the security gaps through robust control measures to protect sensitive data (grades, financial information, and student records) stored in the database.
+
+The proposed database design integrates several security considerations, including access control measures, input validation, data encryption, and logging capabilities. The RBAC model gives a sense of security to the system ensuring that users are granted only the required privileges – adhering to the principle of least privilege [@ferraiolo2001].
+
+Through techniques such as strong authentication mechanisms, regular security assessments, and encryption, the risk of unauthorised access can be further minimnised [@stallings2015]. In addition to this, an auditing mechanism is also a part of this design signified by the `Audit_Trail` table. This allows for tracking changes and access attempts to help in detecting and recovering security breaches with the overarching goal of maintaining data integrity [@mukherjee1994].
+
+The database design also complies with industry best practices and relevant security regulations. The advantage of this is that by implementing the mentioned security controls, the university can foster a sense of trust with stakeholders [@bertino2005].
+
+However, solely relying on the database design and its practical implementation is not enough. Continuous monitoring, regular reviews, and adapting security measures are the responsibility of the university to undertake to stay ahead of constantly evolving threats.
+
 # 6 Appendices
 
 ## 6.1 GitHub repository
