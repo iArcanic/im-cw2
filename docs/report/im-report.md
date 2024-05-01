@@ -188,9 +188,25 @@ Through this implementation of the various access controls, the student informat
 
 # 4 Miscellaneous
 
+<!-- 1250 words maximum -->
+
 ## 4.1 Role-based security
 
-<!-- 1250 words maximum -->
+<!-- 350 words maximum -->
+
+Role-based security (RBAC) is a model that describes access control on a granular level. It concerns the permissions and privileges of users based on the roles granted by the system or organisation [@ferraiolo2001]. In this scenario of the university's student information, the RBAC model is vital to ensure that sensitive access to sensitive data is granted to authorised individuals – only based on their permissions and job functions.
+
+The principle of least privilege is the underlying concept of the RBAC model. It states that users should be granted the minimum level of access as possible to perform their relevant functions [@saltzer1975]. The advantages of this approach help reduce the risk of data breaches (insider threats), malicious or accidental modification to sensitive data, or unauthorised access.
+
+In the context of the university's student information system, there are a wide range of roles such as administrators, students, and faculty members. These are all defined through responsibilities and therefore the level of access for each role. Administrators typically have the highest level of privilege. This is followed by faculty members who may have some access to student records, course information, grades, and so on. Finally, students have the least access, typically just restricted to viewing their own information such as personal data, course enrollments, and current grades.
+
+The RBAC model allows for simplicity and scalability. Instead of managing permissions for each user individually which is an error-prone and tiresome process, RBAC allows administrators to assign roles and define permissions at a role level [@sandhu1998]. This streamlines the process of revoking or granting access to users based on business needs.
+
+Another benefit of the RBAC model is its ability to synchronise with the separation of duties (SoD). SoD is a security mindset that makes sure that no single individual has privileges granted in excess or control over vital business operations [@pereira2012]. Assigning different roles with certain privileges can enforce a SoD mindset to reduce fraud, errors, or conflicts of interest.
+
+RBAC also supports auditing mechanisms and compliance with relevant security regulations, such as the General Data Protection Regulation (GDPR) or the Family Educational Rights and Privacy Act (FERPA) [@bertino2005]. By maintaining clear role mapping, user assignments, and permissions, the university can demonstrate its competence in access control requirements.
+
+As robust as the RBAC model is, it can only be maintained in that manner if roles, permissions, and user assignments are reviewed periodically to ensure that they are in alignment with the university's security and operational needs [@ferraiolo1992]. Furthermore, RBAC alone is not sufficient – it should be combined with other security measures mentioned previously, such as strong encryption, authentication methods, and auditing.
 
 ## 4.2 Minimising risk of unauthorised access
 
