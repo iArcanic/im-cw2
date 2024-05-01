@@ -212,6 +212,22 @@ As robust as the RBAC model is, it can only be maintained in that manner if role
 
 <!-- 350 words maximum -->
 
+Minimising the risk of unauthorised access to sensitive student information is crucial to the university's database system. Therefore, several security measures can be employed to effectively meet this requirement.
+
+**Strong authentication mechanisms**: Strong authentication mechanisms is vital in preventing unauthorised access. This may be through multi-factor authentication (MFA) in combination with passwords, biometrics, or security tokens [@jansen2011]. MFA heavily reduces the risk of unauthorised access through compromised credentials.
+
+**Encryption**: Sensitive data fields, such as address or financial information, should be encrypted using industry-grade algorithms, i.e. AES-256 or RSA. This means even if a malicious third party gains access to the data, it is in an unreadable format without the according decryption keys [@deamen2002]. Encryption should be applied at rest (in the database) and in transit (when data is being transmitted).
+
+**Least privilege principle**: This states that users should only be granted the minimum set of privileges needed to perform their required operations [@saltzer1975]. This principle is implemented through the RBAC model described earlier (see [4.1 Role-based security](#41-role-based-security)).
+
+**Regular security assessments**: Via regular security assessments, i.e. penetration testing, risk assessments, and penetration testing to help identify and address potential vulnerabilities within the system before they can be exploited [@weidman2014]. These assessments should only be conducted by certified third-party organisations or qualified security professionals.
+
+**User awareness and training**: Users of the system themselves are considered one of the biggest security weaknesses. A program that educates and trains users on security best practices such as phishing protection, using strong passwords, and reporting any suspicious activity, can be effective in mitigating unauthorised access attempts in the form of social engineering or human errors [@kruger2006].
+
+**Incident response plan**: If an unauthorised access attempt succeeds, a comprehensive response plan can help the university to recover quickly and respond efficiently, helping to minimise the impact of the attack [@cichonski2012].
+
+By implementing these techniques and adapting pre-existing security measures, the university can significantly reduce the risk as well as the impact of unauthorised access attempts to sensitive student information. This is all in a united effort to maintain the confidentiality, integrity, and availability of the data stored.
+
 ## 4.3 Data auditing
 
 <!-- 550 words maximum -->
