@@ -232,6 +232,28 @@ By implementing these techniques and adapting pre-existing security measures, th
 
 <!-- 550 words maximum -->
 
+Data auditing is an important aspect when maintaining the security and integrity of sensitive information stored in the database. For the university's student information system, a data auditing mechanism is necessary to track changes made to tables in the schema, monitor access history, and potential security breaches.
+
+The main goal of data auditing is to provide a detailed audit trail that captures all operations performed in the database system, including access attempts and data modifications. The audit trail servers as a valuable source of information for administrators and security professionals to identify vulnerabilities, investigate security incidents, and comply with regulations.
+
+The designed database schema itself consists of the `Audit_Trail` table that plays the role of data auditing. The table logs various types of events, including updates, insertions, deletes, and selections among all tables within the system. Each audit entry would typically contain details such as the user's ID, operation type, timestamp, table name, and other relevant metadata.
+
+Maintaining a detailed audit log can help the university achieve the following benefits:
+
+1. **Security breach detection**: Analysis of the audit trail can help in identifying patterns or errors that may indicate malicious access attempts or security violations [@mukherjee1994]. A proactive approach like so enables the university to not only detect breaches but also to respond to them promptly before they appear.
+
+2. **Forensic analysis**: In the event of a security violation, the audit trail is a resource for forensic analysis purposes [@carrier2005]. It allows security professionals to reconstruct the sequence of events that occurred, and gather evidence to support investigations to uncover the parties responsible.
+
+3. **Compliance and regulatory requirements**: The various industry regulations and standards such as the General Data Protection Regulation (GDPR) and the Family Educational Rights and Privacy Act (FERPA) require some sort of data auditing scheme to ensure the protection of sensitive information [@bertino2005]. Therefore by maintaining details logging mechanisms, the university can demonstrate compliance with regulations.
+
+4. **Access monitoring**: The audit log can be used to track all user activities and ensure that sensitive data is restricted to authorised personnel only [@sandhu1994]. Potential cases of unauthorised access or privilege issues can be categorised quickly, meaning the university can promptly take the necessary corrective actions.
+
+5. **Data integrity verification**: Tracking changes made to the database tables as well as to other critical data, the audit trail can provide a sense of confidence for the university in regards to the integrity of the data to rule out any accidental or unauthorised modifications [@garcia2008]. This feature allows for data accuracy and completeness of the student records.
+
+For the above to be effective, the data auditing mechanism itself needs to be secured through proper access controls and robust storage. This means that the `Audit_Trail` table should be protected from any modifications or deletions. If required, access should be granted to a very small number of authorised personnel, such as dedicated auditors and administrators.
+
+It would also be beneficial for the university to establish well-defined policies and procedures for regular review and analysis of the collected logs. This can be achieved through log management visual analysis (graphs, pie charts, etc.) that can also be automated for flagging security violations and generating reports.
+
 # 5 Conclusion
 
 <!-- 200 words maximum -->
