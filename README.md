@@ -210,7 +210,7 @@ ERROR:  permission denied for schema student_info
 ```
 
 > [!NOTE]
-> The permissions for these roles are found in [`sql/04_grant_permissions.sql`](https://github.com/iArcanic/im-cw2/blob/main/sql/04_grant_permissions.sql).
+> The permissions for these roles are found in [`sql/05_grant_permissions.sql`](https://github.com/iArcanic/im-cw2/blob/main/sql/05_grant_permissions.sql).
 
 9. Quit the PostgreSQL connection to the Docker container after usage.
 

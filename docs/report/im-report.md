@@ -12,8 +12,6 @@ csl: docs/report/harvard-imperial-college-london.csl
 
 # 1 Introduction
 
-<!-- 200 words maximum -->
-
 The integrity of student information systems is vital since they concern personal and confidential information. This report therefore aims to address the security concerns regarding the database system that manages the storage of student records, grades, financial information, and other information typical to a university.
 
 The database under consideration will have many user roles with different levels of access, such as administrators, faculty staff, and students. Robust access controls and relevant security measures must be integrated to prevent misuse through unauthorised access, maintain data integrity, and meet certain regulations such as the General Data Protection Regulation (GDPR) [@voigt2017].
@@ -22,13 +20,11 @@ This report will therefore examine the design of the database, keeping in mind s
 
 Via industry practices and the aforementioned security measures, the university can be confident that the student information is attributed to the elements of the CIA triad – that is the confidentiality, integrity, and availability of the data [@samonas2014]. This ensures the protection of sensitive data, also meaning that the stakeholders gain confidence [@elmasri2016].
 
+A practical implementation of this database design is implemented as a Dockerised PostgreSQL setup. A link to the GitHub repository can be found in [Appendix 6.1](#61-github-repository).
+
 # 2 Database design and security
 
-<!-- 800 words maximum -->
-
 ## 2.1 Table design
-
-<!-- 400 words maximum -->
 
 The database design for the student information system of the university includes the provided `Student` table, along with other additional tables that address security concerns and access controls. This proposed schema follows a normalised database design to reduce the chance of data redundancy and anomalies [@elmasri2016]. The entity relationship diagram (ERD) below shows this graphically.
 
@@ -37,24 +33,45 @@ The database design for the student information system of the university include
 However, to go more into detail, the core tables include:
 
 1. **`Students`**: This already provided table stores personal information of students, such as `student_id`, `name`, `date_of_birth`, `address`, and `year_of_study`. Here, the `student_id` serves as the primary key.
-2. **`Departments`**: Stores information on the various university departments through fields such as `department_id` and `department_name`. `department_id` here serves as the primary key.
-3. **`Courses`**: This table details the courses that the university offers among the departments. This is demonstrated via the fields of `course_id`, i.e. the primary key, `course_name`, and `department_id` being the foreign key relation to `Departments`.
-4. **`Grades`**: Records the grades obtained by students for each course, with `grade_id` being the primary key, `grade` being the actual grade, and a connection to both the student and the course via `student_id` and `course_id` respectively [@ramakrishnan2002].
-5. **`Financial information`**: Concerns information about the student's financial information via `financial_id`, the primary key, `scholarship_amount`, `tuition_fee_paid`, and `student_id` being the foreign key relation to `Students` [@silberschatz2011].
 
-In terms of security measures, an additional table that isn't core to the actual student information data is implemented:
+2. **`Departments`**: Stores information on the various university departments through fields such as `department_id` and `department_name`. `department_id` here serves as the primary key.
+
+3. **`Courses`**: This table details the courses that the university offers among the departments. This is demonstrated via the fields of `course_id`, i.e. the primary key, `course_name`, and `department_id` being the foreign key relation to `Departments`.
+
+4. **`Grades`**: Records the grades obtained by students for each course, with `grade_id` being the primary key, `grade` being the actual grade, and a connection to both the student and the course via `student_id` and `course_id` respectively [@ramakrishnan2002].
+
+5. **`Financial information`**: Concerns information about the student's financial information via `financial_id`, the primary key, `scholarship_amount`, `tuition_fee_paid`, and `student_id` being the foreign key relation to `Students` [@silberschatz2011].
 
 6. **`Audit_Trail`**: A table that contains a log of all activities and changes made to the database, through details such as `audit_id` the primary key, `user_id`, `table_name`, `record_id`, `action`, `change_details`, and `change_time` [@mukherjee1994].
 
-Indexes have also been created to increase query speed and performance on frequently queried columns, for example, the `student_id` field in the `Students` table and the `course_id` field in the `Courses` table [@shasha2004].
+Indexes have also been created to increase query speed and performance on frequently queried columns [@shasha2004].
+
+```sql
+-- Students table
+CREATE INDEX idx_students_name ON student_info.Students (name);
+CREATE INDEX idx_students_year_of_study ON student_info.Students (year_of_study);
+
+-- Courses table
+CREATE INDEX idx_courses_course_name ON student_info.Courses (course_name);
+
+-- Grades table
+CREATE INDEX idx_grades_student_id ON student_info.Grades (student_id);
+CREATE INDEX idx_grades_course_id ON student_info.Grades (course_id);
+
+-- Financial_Information table
+CREATE INDEX idx_financial_information_student_id ON student_info.Financial_Information (student_id);
+
+-- Audit_Trail table
+CREATE INDEX idx_audit_trail_table_name ON student_info.Audit_Trail (table_name);
+CREATE INDEX idx_audit_trail_record_id ON student_info.Audit_Trail (record_id);
+CREATE INDEX idx_audit_trail_change_time ON student_info.Audit_Trail (change_time);
+```
 
 The database design is compatible with data archival and backup strategies for long-term maintenance. Any data that is backed up or archived will be stored in a completely isolated schema or database, with periodic backups scheduled in the event of data destruction or exfiltration [@chervenak1998].
 
 ## 2.2 Security requirements
 
-<!-- 200 words maximum -->
-
-Based on the provided scenario of the university's student information system, a system that handles sensitive student records including academic and financial information, several security requirements need to be addressed. These requirements aim to uphold the values of confidentiality, integrity, and availability regarding the data being held in the database [@elmasri2016].
+Several security requirements need to be addressed for this system. These requirements aim to uphold the values of confidentiality, integrity, and availability regarding the data being held in the database [@elmasri2016].
 
 **Confidentiality**: the system should guarantee that information that is sensitive, i.e. personal details, financial data, and grades, is only accessible to authorised users or those who have the necessary permissions. Therefore, access controls along with data encryption measures should be enforced to consolidate this [@bertino2005].
 
@@ -66,11 +83,7 @@ Based on the provided scenario of the university's student information system, a
 
 **Auditing and logging**: In the event of a security breach or to detect potential ones, it would be beneficial for the system to implement comprehensive logging that records all user activities, modifications to data, and any attempts to access the system – whether that be authorised (for insider threats) or unauthorised [@mukherjee1994].
 
-By taking into account the identified security requirements and addressing them, the university can be confident in protecting sensitive information stored in their information systems, as well as complying with relevant data protection regulations and adopting industry best practices.
-
 ## 2.3 Security measures
-
-<!-- 200 words maximum -->
 
 Through these security control measures, the identified security requirements can be met. These are to be implemented in the database design and their access control mechanisms.
 
@@ -86,21 +99,13 @@ Through these security control measures, the identified security requirements ca
 
 **Authentication**: This would mainly be through strong password policies enforced by the university. Additionally, mechanisms such as multi-factor authentication can also be used to authenticate the identity of users to prevent unauthorised access [@stallings2015].
 
-By integrating these security measures as part of the database design as well as implementing the appropriate access control mechanisms, the student information system can protect sensitive data, ensure compliance with necessary regulations, and maintain overall data integrity.
-
 # 3 Access control
 
-<!-- 500 words maximum -->
-
 ## 3.1 SQL queries for user roles
-
-<!-- 300 words maximum -->
 
 To implement the desired access controls for each user role (administrators, faculty members, and students) and the corresponding privileges, SQL queries have been written based on the access requirements for the tables (see [2.1 Table design](#21-table-design)). This ensures that each user role only has access to the necessary information and performs the relevant operations in adherence with the principle of least privilege [@saltzer1975].
 
 ### 3.1.1 Administrators
-
-<!-- 100 words maximum -->
 
 ```sql
 CREATE ROLE admin;
@@ -126,8 +131,6 @@ The series of `GRANT` statements [@postgresql2024] here provide the `admin` role
 
 ### 3.1.2 Faculty members
 
-<!-- 100 words maximum -->
-
 ```sql
 CREATE ROLE faculty_member;
 ```
@@ -147,8 +150,6 @@ GRANT SELECT ON student_info.Financial_Information TO faculty_member;
 Here, this series of `GRANT` statements allows certain privileges on the `Students` table for specific fields. In the other tables, `Courses`, `Grades`, and `Financial_Information`, faculty members are only able to view the data through the `SELECT` permission.
 
 ### 3.1.3 Students
-
-<!-- 100 words maximum -->
 
 ```sql
 CREATE ROLE student;
@@ -170,13 +171,9 @@ For the `student` role, the `GRANT` statements [@mysql2024] here allow for the s
 
 ## 3.2 Access control mechanisms
 
-<!-- 200 words maximum -->
-
 To make sure that only designated users have access to specific information within the proposed database schema (see [2.1 Table design](#21-table-design)), several access control methods have been implemented.
 
 **Role-Based Access Control (RBAC)**: As mentioned previously, the database employs an RBAC model where permissions are based upon the user's assigned role rather than just individual users [@ferraiolo2001]. This therefore simplifies access management.
-
-**View-Based Access Control**: Rather than granting direct access to tables, views can be created to restrict the visibility of sensitive information in certain columns. An example of this may be that a view for faculty members may exclude columns containing a student's financial information [@bertino2005].
 
 **Encryption and masking**: Sensitive data in tables such as addresses in the `Student` table or entries in the `Financial_Information` table, can be encrypted using industry-standard algorithms such as AES-256 [@deamen2002].
 
@@ -184,19 +181,13 @@ To make sure that only designated users have access to specific information with
 
 **Authentication and authorisation**: Strong mechanisms for authentication, such as 2FA and well-defined password policies to verify user identity. Authorisation is handled through the aforementioned RBAC model, allowing users to perform the necessary actions dependent on their role [@stallings2015].
 
-Through this implementation of the various access controls, the student information system can comply with security and privacy regulations as well as restrict access to sensitive data, and maintain data integrity.
-
 # 4 Miscellaneous
-
-<!-- 1250 words maximum -->
 
 ## 4.1 Role-based security
 
-<!-- 350 words maximum -->
-
 Role-based security (RBAC) is a model that describes access control on a granular level. It concerns the permissions and privileges of users based on the roles granted by the system or organisation [@ferraiolo2001]. In this scenario of the university's student information, the RBAC model is vital to ensure that sensitive access to sensitive data is granted to authorised individuals – only based on their permissions and job functions.
 
-The principle of least privilege is the underlying concept of the RBAC model. It states that users should be granted the minimum level of access as possible to perform their relevant functions [@saltzer1975]. The advantages of this approach help reduce the risk of data breaches (insider threats), malicious or accidental modification to sensitive data, or unauthorised access.
+The principle of least privilege is the underlying concept of the RBAC model. It states that users should be granted the minimum level of access possible to perform their relevant functions [@saltzer1975]. The advantages of this approach help reduce the risk of data breaches (insider threats), malicious or accidental modification to sensitive data, or unauthorised access.
 
 In the context of the university's student information system, there are a wide range of roles such as administrators, students, and faculty members. These are all defined through responsibilities and therefore the level of access for each role. Administrators typically have the highest level of privilege. This is followed by faculty members who may have some access to student records, course information, grades, and so on. Finally, students have the least access, typically just restricted to viewing their own information such as personal data, course enrollments, and current grades.
 
@@ -209,8 +200,6 @@ RBAC also supports auditing mechanisms and compliance with relevant security reg
 As robust as the RBAC model is, it can only be maintained in that manner if roles, permissions, and user assignments are reviewed periodically to ensure that they are in alignment with the university's security and operational needs [@ferraiolo1992]. Furthermore, RBAC alone is not sufficient – it should be combined with other security measures mentioned previously, such as strong encryption, authentication methods, and auditing.
 
 ## 4.2 Minimising risk of unauthorised access
-
-<!-- 350 words maximum -->
 
 Minimising the risk of unauthorised access to sensitive student information is crucial to the university's database system. Therefore, several security measures can be employed to effectively meet this requirement.
 
@@ -226,19 +215,15 @@ Minimising the risk of unauthorised access to sensitive student information is c
 
 **Incident response plan**: If an unauthorised access attempt succeeds, a comprehensive response plan can help the university to recover quickly and respond efficiently, helping to minimise the impact of the attack [@cichonski2012].
 
-By implementing these techniques and adapting pre-existing security measures, the university can significantly reduce the risk as well as the impact of unauthorised access attempts to sensitive student information. This is all in a united effort to maintain the confidentiality, integrity, and availability of the data stored.
-
 ## 4.3 Data auditing
-
-<!-- 550 words maximum -->
 
 Data auditing is an important aspect when maintaining the security and integrity of sensitive information stored in the database. For the university's student information system, a data auditing mechanism is necessary to track changes made to tables in the schema, monitor access history, and potential security breaches.
 
-The main goal of data auditing is to provide a detailed audit trail that captures all operations performed in the database system, including access attempts and data modifications. The audit trail servers as a valuable source of information for administrators and security professionals to identify vulnerabilities, investigate security incidents, and comply with regulations.
+The main goal of data auditing is to provide a detailed audit trail that captures all operations performed in the database system, including access attempts and data modifications. The audit trail serves as a valuable source of information for administrators and security professionals to identify vulnerabilities, investigate security incidents, and comply with regulations.
 
 The designed database schema itself consists of the `Audit_Trail` table that plays the role of data auditing. The table logs various types of events, including updates, insertions, deletes, and selections among all tables within the system. Each audit entry would typically contain details such as the user's ID, operation type, timestamp, table name, and other relevant metadata.
 
-Maintaining a detailed audit log can help the university achieve the following benefits:
+Maintaining a detailed audit log can help with the following:
 
 1. **Security breach detection**: Analysis of the audit trail can help in identifying patterns or errors that may indicate malicious access attempts or security violations [@mukherjee1994]. A proactive approach like so enables the university to not only detect breaches but also to respond to them promptly before they appear.
 
@@ -252,21 +237,7 @@ Maintaining a detailed audit log can help the university achieve the following b
 
 For the above to be effective, the data auditing mechanism itself needs to be secured through proper access controls and robust storage. This means that the `Audit_Trail` table should be protected from any modifications or deletions. If required, access should be granted to a very small number of authorised personnel, such as dedicated auditors and administrators.
 
-It would also be beneficial for the university to establish well-defined policies and procedures for regular review and analysis of the collected logs. This can be achieved through log management visual analysis (graphs, pie charts, etc.) that can also be automated for flagging security violations and generating reports.
-
-# 5 Conclusion
-
-<!-- 200 words maximum -->
-
-Upholding the elements of the CIA triad, i.e. confidentiality, integrity, and availability, for the university's student information system is of paramount importance. This report therefore has detailed an approach to address the security gaps through robust control measures to protect sensitive data (grades, financial information, and student records) stored in the database.
-
-The proposed database design integrates several security considerations, including access control measures, input validation, data encryption, and logging capabilities. The RBAC model gives a sense of security to the system ensuring that users are granted only the required privileges – adhering to the principle of least privilege [@ferraiolo2001].
-
-Through techniques such as strong authentication mechanisms, regular security assessments, and encryption, the risk of unauthorised access can be further minimnised [@stallings2015]. In addition to this, an auditing mechanism is also a part of this design signified by the `Audit_Trail` table. This allows for tracking changes and access attempts to help in detecting and recovering security breaches with the overarching goal of maintaining data integrity [@mukherjee1994].
-
-The database design also complies with industry best practices and relevant security regulations. The advantage of this is that by implementing the mentioned security controls, the university can foster a sense of trust with stakeholders [@bertino2005].
-
-However, solely relying on the database design and its practical implementation is not enough. Continuous monitoring, regular reviews, and adapting security measures are the responsibility of the university to undertake to stay ahead of constantly evolving threats.
+It would also be beneficial for the university to establish well-defined policies and procedures for regular review and analysis of the collected logs. This can be achieved through log management visual analysis (graphs, pie charts, etc.) that can also be automated.
 
 # 6 Appendices
 
