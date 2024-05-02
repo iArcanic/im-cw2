@@ -44,6 +44,33 @@ macOS:
 brew install postgresql
 ```
 
+> [!NOTE]
+>
+> - You may have to export the PostgreSQL `bin` directory to use the PostgreSQL commands system wide.
+> - First, find out what shell you are currently using with:
+>
+> ```bash
+> echo $SHELL
+> ```
+>
+> - Open your shell config file (prefixed with a `.`) with an appropriate text editor (e.g. `nano`, `vim`, `nvim`, etc.).
+>
+> ```bash
+> nano <SHELL_CONFIG_FILE>
+> ```
+>
+> - Add the following line:
+>
+> ```bash
+> export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
+> ```
+>
+> - Update your shell based on the config file changes.
+>
+> ```bash
+> source <SHELL_CONFIG_FILE>
+> ```
+
 Linux:
 
 - Debian/Ubuntu:
@@ -166,13 +193,35 @@ ERROR:  permission denied for schema student_info
 > [!NOTE]
 > The permissions for these roles are found in [`sql/05_grant_permissions.sql`](https://github.com/iArcanic/im-cw2/blob/main/sql/05_grant_permissions.sql).
 
-8. Quit the PostgreSQL connection to the Docker container after usage.
+8. Backup and export the database
+
+Navigate to the scripts folder.
+
+```bash
+cd scripts
+```
+
+Make the `backup.sh` script an executable.
+
+```bash
+chmod +x backup.sh
+```
+
+Run the `backup.sh` script.
+
+```bash
+./backup.sh
+```
+
+Navigate to your home folder and you should see the backup folder with a database dump `.sql` file.
+
+9. Quit the PostgreSQL connection to the Docker container after usage.
 
 ```postgresql
 \q
 ```
 
-9. Destroy the Docker container after usage.
+10. Destroy the Docker container after usage.
 
 ```bash
 docker-compose down
