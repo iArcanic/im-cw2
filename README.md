@@ -96,26 +96,7 @@ git clone https://github.com/iArcanic/im-cw2
 cd im-cw2
 ```
 
-3. Create an environment variable file.
-
-```bash
-touch .env
-```
-
-4. Add the following contents to the `.env` file.
-
-```bash
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=mypassword
-POSTGRES_DB=student_db
-```
-
-> [!NOTE]
->
-> - These environment variables are necessary for configuring the PostgreSQL database.
-> - You can modify them as needed for your environment, but ensure that the [`docker-compose.yml`](https://github.com/iArcanic/im-cw2/blob/main/docker-compose.yml) file is updated accordingly with any changes to these credentials.
-
-5. Build and run all Docker containers.
+3. Build and run all Docker containers.
 
 ```bash
 docker-compose up
@@ -138,49 +119,22 @@ docker-compose up
 >
 > After, you can optionally view Docker images, status of containers, and interact with running containers using the Docker Desktop application.
 
-6. Use the PostgreSQL CLI to connect to the Docker container.
-
-```bash
-psql -h localhost -p 5433 -U <POSTGRES_USER>
-```
-
-For example:
+4. Use the PostgreSQL CLI to connect to the Docker container.
 
 ```bash
 psql -h localhost -p 5433 -U postgres
 ```
 
-> [!NOTE]
->
-> - The default name of the PostgreSQL user will be the value of the `POSTGRES_USER` variable that you set in your `.env` file.
->
-> - You will be prompted to enter a password like so:
->
-> ```plaintext
-> Password for user postgres:
-> ```
->
-> - This will be the value of the `POSTGRES_PASSWORD` variable that you set in your `.env` file.
-
-7. Connect to the database.
-
-```postgresql
-\c <POSTGRES_DB>
-```
-
-For example:
+5. Connect to the database.
 
 ```postgresql
 \c student_db
 ```
 
-> [!NOTE]
-> The name of your database will be the value of the `POSTGRES_DB` variable that you set in your `.env` file.
-
-8. Experiment with connecting to the database as different users.
+6. Experiment with connecting to the database as different users.
 
 ```postgresql
-\c <POSTGRES_DB> <USERNAME>
+\c student_db <USERNAME>
 ```
 
 For example:
@@ -195,7 +149,7 @@ For example:
 > [!IMPORTANT]
 > When referencing the tables, you must use the schema name `student_info` before the table name.
 
-1. Experiment with Role-Based Access Control (RBAC).
+7. Experiment with Role-Based Access Control (RBAC).
 
 For example, as `admin_user` (assuming that you have connected as `admin_user` beforehand):
 
@@ -212,13 +166,13 @@ ERROR:  permission denied for schema student_info
 > [!NOTE]
 > The permissions for these roles are found in [`sql/05_grant_permissions.sql`](https://github.com/iArcanic/im-cw2/blob/main/sql/05_grant_permissions.sql).
 
-9. Quit the PostgreSQL connection to the Docker container after usage.
+8. Quit the PostgreSQL connection to the Docker container after usage.
 
 ```postgresql
 \q
 ```
 
-10. Destroy the Docker container after usage.
+9. Destroy the Docker container after usage.
 
 ```bash
 docker-compose down
