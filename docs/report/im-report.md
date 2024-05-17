@@ -18,13 +18,13 @@ The database will therefore have many user roles with different levels of access
 
 Via industry practices and the aforementioned security measures, the university can be confident that the student information is attributed to the elements of the CIA triad – that is the confidentiality, integrity, and availability of the data [@samonas2014]. This ensures the protection of sensitive data, also meaning that the stakeholders gain confidence [@elmasri2016].
 
-A practical implementation of this database design is implemented as a Dockerised PostgreSQL setup. A link to the GitHub repository can be found in [Appendix 5.1](#51-github-repository). To install and run this setup, it is highly recommended that you read the documentation found in the repository's [README.md](https://github.com/iArcanic/im-cw2/blob/main/README.md) file.
+A practical implementation of this database design is implemented as a Dockerised PostgreSQL setup. A link to the GitHub repository can be found in [Appendix 5.1](#52-github-repository). To install and run this setup, it is highly recommended that you read the documentation found in the repository's [README.md](https://github.com/iArcanic/im-cw2/blob/main/README.md) file.
 
 # 2 Database design and security
 
 ## 2.1 Table design
 
-The database design for the student information system of the university includes the already provided `Student` table, along with other additional tables that address security concerns and access controls. The schema follows a normalised database design to reduce the chance of data redundancy or anomalies [@elmasri2016]. Please see [Appendix 5.2](#52-entity-relationship-diagram-erd) for the Entity Relationship Diagram (ERD).
+The database design for the student information system of the university includes the already provided `Student` table, along with other additional tables that address security concerns and access controls. The schema follows a normalised database design to reduce the chance of data redundancy or anomalies [@elmasri2016]. Please see [Appendix 5.1](#51-entity-relationship-diagram-erd) for the Entity Relationship Diagram (ERD).
 
 However, to go more into detail, the core tables include:
 
@@ -113,7 +113,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Courses TO administrator;
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Grades TO administrator;
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Financial_Information TO administrator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON student_info.Financial_Information
+    TO administrator;
 ```
 
 The series of `GRANT` statements [@postgresql2024] here provide the `admin` role to perform operations such as `SELECT` (list data), `INSERT` (insert new data), `UPDATE` (update table records with new data), and `DELETE` (remove data) on all tables within the database. This makes sense for an administrative role, as in reality, they would have complete control over the system for maintenance and management purposes.
@@ -148,7 +149,8 @@ CREATE ROLE student;
 This statement creates a new role called `student`.
 
 ```sql
-GRANT SELECT, INSERT, UPDATE (name, student_id, year_of_study) ON student_info.Students TO student;
+GRANT SELECT, INSERT, UPDATE (name, student_id, year_of_study)
+    ON student_info.Students TO student;
 
 GRANT SELECT ON student_info.Courses TO student;
 
@@ -213,12 +215,12 @@ It would also be beneficial for the university to establish well-defined policie
 
 # 5 Appendices
 
-## 5.1 GitHub repository
-
-[https://github.com/iArcanic/im-cw2](https://github.com/iArcanic/im-cw2)
-
-## 5.2 Entity Relationship Diagram (ERD)
+## 5.1 Entity Relationship Diagram (ERD)
 
 ![Entity relationship diagram](docs/report/images/erd.png)
+
+## 5.2 GitHub repository
+
+[https://github.com/iArcanic/im-cw2](https://github.com/iArcanic/im-cw2)
 
 # 6 References
