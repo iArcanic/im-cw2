@@ -5,6 +5,7 @@ bibliography: docs/report/references.bib
 toc: true
 toc-title: Table of Contents
 toc-depth: 3
+geometry: "left=1.25cm, right=1.25cm, top=1.25cm, bottom=1.25cm"
 csl: docs/report/harvard-imperial-college-london.csl
 ---
 
@@ -20,15 +21,13 @@ Via industry practices and the aforementioned security measures, the university 
 
 A practical implementation of this database design is implemented as a Dockerised PostgreSQL setup. A link to the GitHub repository can be found in [Appendix 5.1](#51-github-repository).
 
-Please also see [Appendix 5.2](#52-postgresql-database-dump) for the complete PostgreSQL dump of the database design.
+Please also see [Appendix 5.3](#53-postgresql-database-dump) for the complete PostgreSQL dump of the database design.
 
 # 2 Database design and security
 
 ## 2.1 Table design
 
-The database design for the student information system of the university includes the already provided `Student` table, along with other additional tables that address security concerns and access controls. The schema follows a normalised database design to reduce the chance of data redundancy or anomalies [@elmasri2016]. Here is an entity relationship diagram (ERD) to demonstrate the schema graphically.
-
-![Entity relationship diagram](docs/report/images/erd.png)
+The database design for the student information system of the university includes the already provided `Student` table, along with other additional tables that address security concerns and access controls. The schema follows a normalised database design to reduce the chance of data redundancy or anomalies [@elmasri2016]. Please see [Appendix 5.2](#52-entity-relationship-diagram-erd) for the Entity Relationship Diagram (ERD).
 
 However, to go more into detail, the core tables include:
 
@@ -219,7 +218,11 @@ It would also be beneficial for the university to establish well-defined policie
 
 [https://github.com/iArcanic/im-cw2](https://github.com/iArcanic/im-cw2)
 
-## 5.2 PostgreSQL database dump
+## 5.2 Entity Relationship Diagram (ERD)
+
+![Entity relationship diagram](docs/report/images/erd.png)
+
+## 5.3 PostgreSQL database dump
 
 ```sql
 --
