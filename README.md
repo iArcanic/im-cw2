@@ -1,6 +1,7 @@
 # im-cw2
 
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 ## 1 Prerequisites
 
@@ -152,13 +153,24 @@ docker-compose up
 psql -h localhost -p 5433 -U postgres
 ```
 
-5. Connect to the database.
+> [!NOTE]
+>
+> - The default PostgreSQL user is `postgres` and its password is `changeme`.
+> - The default port is `5433`.
+> - These values can be found in the [`.env`](https://github.com/iArcanic/im-cw2/blob/main/.env) file and can be changed if necessary.
+
+1. Connect to the database.
 
 ```postgresql
 \c student_db
 ```
 
-6. Experiment with connecting to the database as different users.
+> [!NOTE]
+>
+> - The default database name is `student_db`.
+> - These values can be found in the [`.env`](https://github.com/iArcanic/im-cw2/blob/main/.env) file and can be changed if necessary.
+
+1. Experiment with connecting to the database as different users.
 
 ```postgresql
 \c student_db <USERNAME>
@@ -213,9 +225,16 @@ Run the `backup.sh` script.
 ./backup.sh
 ```
 
-Navigate to your home folder and you should see the backup folder with a database dump `.sql` file.
+Navigate to your home folder and you should see the backup folder (`student_db-backups`) with a database dump `.sql` file (timestamped accordingly).
 
-9. Quit the PostgreSQL connection to the Docker container after usage.
+> [!NOTE]
+>
+> - You will be prompted to enter a password for this script.
+> - This is the password of the user that the script is using.
+> - In this case, it is the default user `postgres` with its password `changeme`.
+> - These values can be found in the [`.env`](https://github.com/iArcanic/im-cw2/blob/main/.env) file and can be changed if necessary.
+
+1. Quit the PostgreSQL connection to the Docker container after usage.
 
 ```postgresql
 \q
